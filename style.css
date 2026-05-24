@@ -99,3 +99,24 @@ li.completed .task-text {
     font-size: 14px;
     cursor: pointer;
 }
+
+/* --- DARK MODE (Matches iOS System Settings) --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1c1c1e;  /* iOS Dark Gray Background */
+        --card-bg: #2c2c2e;   /* Slightly lighter gray for the list items */
+        --text-main: #ffffff; /* White text */
+        --text-muted: #8e8e93; /* Muted gray for completed items */
+        --accent: #0a84ff;    /* iOS Dark Mode Blue */
+    }
+
+    /* Make the input text white so you can read what you type */
+    input[type="text"] {
+        color: var(--text-main);
+    }
+
+    /* Darken the lines between list items */
+    li {
+        border-bottom: 1px solid #38383a;
+    }
+}
