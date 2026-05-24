@@ -1,9 +1,9 @@
 :root {
-    --bg-color: #f2f2f7; /* Standard iOS background */
+    --bg-color: #f2f2f7;
     --card-bg: #ffffff;
     --text-main: #000000;
     --text-muted: #8e8e93;
-    --accent: #007aff; /* iOS Blue */
+    --accent: #007aff; 
 }
 
 * {
@@ -17,7 +17,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     padding: 20px;
-    padding-top: max(40px, env(safe-area-inset-top)); /* Respects the iPhone notch */
+    padding-top: max(40px, env(safe-area-inset-top));
 }
 
 .app-container {
@@ -25,16 +25,55 @@ body {
     margin: 0 auto;
 }
 
-h1 {
-    font-size: 34px;
-    font-weight: 700;
+/* --- Header & Tabs --- */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
+h1 {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    background: var(--card-bg);
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.tabs button {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tabs button.active {
+    background: var(--bg-color);
+    color: var(--text-main);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- Form --- */
 form {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    transition: opacity 0.3s ease;
+}
+
+form.hidden {
+    display: none;
 }
 
 input[type="text"] {
@@ -59,6 +98,7 @@ button#add-btn {
     box-shadow: 0 2px 5px rgba(0,122,255,0.3);
 }
 
+/* --- List & Checkbox --- */
 ul {
     list-style: none;
     background-color: var(--card-bg);
@@ -69,7 +109,6 @@ ul {
 
 li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 16px;
     border-bottom: 1px solid #e5e5ea;
@@ -80,9 +119,35 @@ li:last-child {
     border-bottom: none;
 }
 
+/* Custom Square Checkbox */
+.checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--text-muted);
+    border-radius: 6px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+li.completed .checkbox {
+    background-color: var(--text-muted);
+    border-color: var(--text-muted);
+}
+
+li.completed .checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .task-text {
     flex: 1;
-    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 li.completed .task-text {
@@ -91,32 +156,47 @@ li.completed .task-text {
 }
 
 .delete-btn {
-    background-color: #ff3b30; /* iOS Red */
+    background-color: #ff3b30;
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
-/* --- DARK MODE (Matches iOS System Settings) --- */
+/* --- Animations --- */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); }
+}
+
+.animate-in {
+    animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-out {
+    animation: slideOut 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* --- DARK MODE --- */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #1c1c1e;  /* iOS Dark Gray Background */
-        --card-bg: #2c2c2e;   /* Slightly lighter gray for the list items */
-        --text-main: #ffffff; /* White text */
-        --text-muted: #8e8e93; /* Muted gray for completed items */
-        --accent: #0a84ff;    /* iOS Dark Mode Blue */
+        --bg-color: #1c1c1e;  
+        --card-bg: #2c2c2e;   
+        --text-main: #ffffff; 
+        --text-muted: #8e8e93; 
+        --accent: #0a84ff;    
     }
-
-    /* Make the input text white so you can read what you type */
-    input[type="text"] {
-        color: var(--text-main);
-    }
-
-    /* Darken the lines between list items */
-    li {
-        border-bottom: 1px solid #38383a;
+    input[type="text"] { color: var(--text-main); }
+    li { border-bottom: 1px solid #38383a; }
+    .tabs button.active {
+        background: #3a3a3c;
     }
 }

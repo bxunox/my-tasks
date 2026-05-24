@@ -15,11 +15,19 @@
 </head>
 <body>
     <div class="app-container">
-        <h1>Tasks</h1>
+        <div class="header-nav">
+            <h1 id="page-title">Tasks</h1>
+            <div class="tabs">
+                <button id="tab-active" class="active">Active</button>
+                <button id="tab-archive">Archive</button>
+            </div>
+        </div>
+
         <form id="todo-form">
             <input type="text" id="todo-input" placeholder="What needs to be done?" required autocomplete="off">
             <button type="submit" id="add-btn">+</button>
         </form>
+        
         <ul id="todo-list"></ul>
     </div>
     <script src="script.js"></script>
